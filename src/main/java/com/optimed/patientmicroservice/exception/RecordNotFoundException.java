@@ -1,5 +1,5 @@
 
-package com.patientservice.exception;
+package com.optimed.patientmicroservice.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
