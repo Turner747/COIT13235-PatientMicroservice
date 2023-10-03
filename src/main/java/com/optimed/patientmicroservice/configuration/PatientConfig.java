@@ -1,5 +1,5 @@
 
-package com.patientservice.configuration;
+package com.optimed.patientmicroservice.configuration;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
