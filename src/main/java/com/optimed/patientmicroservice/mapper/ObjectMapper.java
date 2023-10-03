@@ -1,5 +1,5 @@
 
-package com.patientservice.mapper;
+package com.optimed.patientmicroservice.mapper;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
