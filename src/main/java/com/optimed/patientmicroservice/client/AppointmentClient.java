@@ -1,7 +1,6 @@
+package com.optimed.patientmicroservice.client;
 
-package com.patientservice.client;
-
-import com.patientservice.response.AppointmentResponse;
+import com.optimed.patientmicroservice.response.AppointmentResponse;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
