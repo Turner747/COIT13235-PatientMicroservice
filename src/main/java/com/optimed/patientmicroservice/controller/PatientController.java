@@ -1,10 +1,10 @@
 
-package com.patientservice.controller;
+package com.optimed.patientmicroservice.controller;
 
-import com.patientservice.model.Patient;
-import com.patientservice.exception.RecordNotFoundException;
-import com.patientservice.response.PatientResponse;
-import com.patientservice.service.PatientService;
+import com.optimed.patientmicroservice.model.Patient;
+import com.optimed.patientmicroservice.exception.RecordNotFoundException;
+import com.optimed.patientmicroservice.response.PatientResponse;
+import com.optimed.patientmicroservice.service.PatientService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
-import com.patientservice.repository.PatientRepository;
+import com.optimed.patientmicroservice.repository.PatientRepository;
 
 @RestController
 @RequestMapping("/patients")
