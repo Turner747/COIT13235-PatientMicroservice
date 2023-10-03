@@ -1,5 +1,5 @@
 
-package com.patientservice.client;
+package com.optimed.patientmicroservice.client;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
