@@ -1,5 +1,5 @@
 
-package com.patientservice.response;
+package com.optimed.patientmicroservice.response;
 
 import jakarta.persistence.*;
 import lombok.Data;
