@@ -1,5 +1,5 @@
 
-package com.patientservice.model;
+package com.optimed.patientmicroservice.model;
 
 import jakarta.persistence.*;
 import java.util.Date;
