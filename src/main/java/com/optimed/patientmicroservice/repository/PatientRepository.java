@@ -1,7 +1,7 @@
 
-package com.patientservice.repository;
+package com.optimed.patientmicroservice.repository;
 
-import com.patientservice.model.Patient;
+import com.optimed.patientmicroservice.model.Patient;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
