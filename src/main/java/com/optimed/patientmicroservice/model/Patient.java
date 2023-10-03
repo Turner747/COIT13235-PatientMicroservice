@@ -1,8 +1,8 @@
 
-package com.patientservice.model;
+package com.optimed.patientmicroservice.model;
 
-import com.patientservice.response.ConditionResponse;
-import com.patientservice.response.VisitNoteResponse;
+import com.optimed.patientmicroservice.response.ConditionResponse;
+import com.optimed.patientmicroservice.response.VisitNoteResponse;
 
 import jakarta.persistence.*;
 import java.util.Date;
