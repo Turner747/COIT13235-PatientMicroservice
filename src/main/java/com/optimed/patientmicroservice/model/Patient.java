@@ -1,16 +1,21 @@
 
 package com.optimed.patientmicroservice.model;
 
-import com.optimed.patientmicroservice.response.ConditionResponse;
-import com.optimed.patientmicroservice.response.VisitNoteResponse;
-
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import lombok.*;
 
+@Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "patient")
-public class Patient {
+public class Patient implements Serializable  {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +28,7 @@ public class Patient {
     @Column(name = "surname", nullable = false)
     private String surname;
     
+    @Temporal(TemporalType.DATE)
     @Column(name = "date_of_birth", nullable = false)
     private Date dateOfBirth;
     
@@ -44,128 +50,16 @@ public class Patient {
     @Column(name = "postcode", nullable = false)
     private String postcode;
     
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
+    @JsonIgnore
     @Column(name = "creation_date", nullable = false)
     private Date creationDate;
     
+    @Temporal(TemporalType.TIMESTAMP)
+    @UpdateTimestamp
+    @JsonIgnore
     @Column(name = "updated_date", nullable = false)
     private Date updatedDate;
-    
-    private ConditionResponse condition;
-
-    private VisitNoteResponse visit_note;
-    
-    //Getters
-    public Long getId() {
-        return id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public String getPhoneNbr() {
-        return phoneNbr;
-    }
-
-    public String getEmailAddress() {
-        return emailAddress;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public String getSuburb() {
-        return suburb;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public String getPostcode() {
-        return postcode;
-    }
-
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public Date getUpdatedDate() {
-        return updatedDate;
-    }
-
-    public ConditionResponse getCondition() {
-        return condition;
-    }
-
-    public VisitNoteResponse getVisit_note() {
-        return visit_note;
-    }
-
-    //Setters
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public void setPhoneNbr(String phoneNbr) {
-        this.phoneNbr = phoneNbr;
-    }
-
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public void setSuburb(String suburb) {
-        this.suburb = suburb;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public void setPostcode(String postcode) {
-        this.postcode = postcode;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public void setUpdatedDate(Date updatedDate) {
-        this.updatedDate = updatedDate;
-    }
-
-    public void setCondition(ConditionResponse condition) {
-        this.condition = condition;
-    }
-
-    public void setVisit_note(VisitNoteResponse visit_note) {
-        this.visit_note = visit_note;
-    }
-    
+   
 }

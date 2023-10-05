@@ -1,29 +1,39 @@
 
 package com.optimed.patientmicroservice.response;
 
-import jakarta.persistence.*;
-import lombok.Data;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import java.util.Date;
+import lombok.Data;
 
 @Data
+@Embeddable
 public class PatientResponse {
     
     private Long id;
-    private String firstName;
+    private String first_name;
     private String surname;
-    private Date dateOfBirth;
-    private String phoneNbr;
-    private String emailAddress;
+    
+    @Temporal(TemporalType.DATE)
+    private Date date_of_birth;
+    
+    private String phone_number;
+    
+    private String email_address;
     
     private String street;
+    
     private String suburb;
+    
     private String state;
+    
     private String postcode;
     
-    private Date creationDate;
-    private Date updatedDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date creation_date;
     
-    private ConditionResponse condition;
-    private VisitNoteResponse visit_note;
- 
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updated_date;
+    
 }

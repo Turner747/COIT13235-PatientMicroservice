@@ -6,6 +6,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
+@Embeddable
 public class VisitNoteResponse {
 
     private Long id;
@@ -14,8 +15,6 @@ public class VisitNoteResponse {
     private PatientResponse patient;
     
     private String content;
-    private Date visitDate;
-    private Date creationDate;
-    private Date updatedDate;
+    private Date visit_date;
 
 }

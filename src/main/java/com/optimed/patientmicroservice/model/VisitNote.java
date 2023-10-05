@@ -1,93 +1,38 @@
 
 package com.optimed.patientmicroservice.model;
 
-import com.optimed.patientmicroservice.response.PatientResponse;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.optimed.patientmicroservice.response.StaffResponse;
 import jakarta.persistence.*;
 import java.util.Date;
-import java.util.List;
+import lombok.*;
 
+@Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "visit_note")
-public class VisitNote {
-
+public class VisitNote  {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
     
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "patient_id", referencedColumnName = "id")
+    @JsonManagedReference
+    private Patient patient;
+    
+    @Embedded
+    private StaffResponse doctor;
+    
     @Column(name = "content", nullable = false)
     private String content;
     
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "visit_date", nullable = false)
     private Date visitDate;
     
-    @Column(name = "creation_date", nullable = false)
-    private Date creationDate;
-    
-    @Column(name = "updated_date", nullable = false)
-    private Date updatedDate;
-
-    private PatientResponse patient;
-    
-    private StaffResponse doctor;
-
-    //Getters
-    public Long getId() {
-        return id;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public Date getVisitDate() {
-        return visitDate;
-    }
-
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public Date getUpdatedDate() {
-        return updatedDate;
-    }
-
-    public PatientResponse getPatient() {
-        return patient;
-    }
-
-    public StaffResponse getDoctor() {
-        return doctor;
-    }
-
-    //Setters
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public void setVisitDate(Date visitDate) {
-        this.visitDate = visitDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public void setUpdatedDate(Date updatedDate) {
-        this.updatedDate = updatedDate;
-    }
-
-    public void setPatient(PatientResponse patient) {
-        this.patient = patient;
-    }
-
-    public void setDoctor(StaffResponse doctor) {
-        this.doctor = doctor;
-    }
-
 }

@@ -1,107 +1,74 @@
 
 package com.optimed.patientmicroservice.controller;
 
+import com.optimed.patientmicroservice.mapper.ObjectMapper;
 import com.optimed.patientmicroservice.model.Patient;
-import com.optimed.patientmicroservice.exception.RecordNotFoundException;
+import com.optimed.patientmicroservice.repository.PatientRepository;
 import com.optimed.patientmicroservice.response.PatientResponse;
-import com.optimed.patientmicroservice.service.PatientService;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Optional;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import java.util.Collection;
 import java.util.List;
-import com.optimed.patientmicroservice.repository.PatientRepository;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/patients")
 public class PatientController {
-    
-    @Autowired
-    private PatientService patientService;
-    
-    @Autowired
+
     private PatientRepository patientRepo;
     
-    public PatientController(PatientService patientService) {
-        super();
-        this.patientService = patientService;
-    }
-
-    @GetMapping("/all")
-    public List<Patient> listPatients(){
-        return patientService.getAllPatients();
-        /*
-        model.addAttribute("customers", patientService.getAllPatients());
-        return patientService.getAllPatients();
-        */
+    @PostMapping
+    public ResponseEntity<PatientResponse> savePatient(@RequestBody Patient patient) {
+        Patient new_patient = patientRepo.save(patient);
+    
+        return ResponseEntity.status(HttpStatus.CREATED).body(ObjectMapper.map(new_patient, PatientResponse.class));
     }
     
-    @GetMapping("/{id}")
-    private ResponseEntity<PatientResponse> getPatientById(@PathVariable("id") int id) throws RecordNotFoundException {
-        PatientResponse patient = patientService.getPatientById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(patient);
-    }
-    
-    @GetMapping("/create")
-    public String createPatientForm(Model model){
-        Patient patient = new Patient();
-        model.addAttribute("patient", patient);
-        return "register_patient.hyml";
-    }
-    
-    public String savePatient(@ModelAttribute("patient") Patient patient) {
-        patientService.savePatient(patient);
-        return "redirect:/patients";
-    }
-    
-    @GetMapping("/update/{id}")
-    public String editPatientForm(@PathVariable int id, Model model) throws RecordNotFoundException {
-        model.addAttribute("patient", patientService.getPatientById(id));
-
-        //Patient update form
-        return "update_patient.html";
-    }
+    @GetMapping
+    public ResponseEntity<Collection<PatientResponse>> getAllPatients() {
+        List<Patient> patients = patientRepo.findAll();
         
-        /*
-    @PostMapping("/{id}")
-	public String updatePatient(@PathVariable int id,
-			@ModelAttribute("patient") Patient patient,
-			Model model) {
-		
-		PatientResponse existingPatient = patientService.getPatientById(id);
-                
-		existingPatient.setId(id);
-		existingPatient.setFirstName(patient.getFirstName());
-                existingPatient.setSurname(patient.getSurname());
-                existingPatient.setDateOfBirth(patient.getDateOfBirth());
-		existingPatient.setGender(patient.getGender());
-                existingPatient.setPhoneNbr(patient.getPhoneNbr());
-                existingPatient.setEmailAddress(patient.getEmailAddress());
-                
-                existingPatient.setAddressLine(patient.getAddressLine());
-                existingPatient.setSuburb(patient.getSuburb());
-                existingPatient.setPostcode(patient.getPostcode());
-                existingPatient.setState(patient.getState());
-                
-                existingPatient.setEmergencyContactName(patient.getEmergencyContactName());
-                existingPatient.setEmergencyContactNbr(patient.getEmergencyContactNbr());
-                
-                existingPatient.setMedicareNbr(patient.getMedicareNbr());
-                existingPatient.setIRN(patient.getIRN());
-                
-		
-		patientService.savePatient(existingPatient);
-                
-                
-		return "redirect:/customers";		
-	}
-*/
+        if(patients.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        else {
+            List<PatientResponse> patientResponse = ObjectMapper.mapAll(patients, PatientResponse.class);
+            
+            return ResponseEntity.status(HttpStatus.OK).body(patientResponse);
+        }
+    }
+    
+    @GetMapping("/id/{id}")
+    public ResponseEntity<PatientResponse> getPatientById(@PathVariable("id") Long id) {
+        Optional<Patient> optional = patientRepo.findById(id);
+        
+        if(optional.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        else {
+            PatientResponse patientResponse = ObjectMapper.map(optional, PatientResponse.class);
+            
+            return ResponseEntity.status(HttpStatus.OK).body(patientResponse);
+        }
+    }
+    
+    @PutMapping("/id/{id}")
+    public ResponseEntity<PatientResponse> updatePatient(@PathVariable Long id, @RequestBody Patient updatedPatient) {
+        Optional<Patient> optional = patientRepo.findById(id);
+        
+        if (optional.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        else {
+            Patient existingPatient = optional.get();
+            existingPatient = ObjectMapper.map(updatedPatient, Patient.class);
+            PatientResponse patientResponse = ObjectMapper.map(patientRepo.save(existingPatient), PatientResponse.class);
 
-
+            return ResponseEntity.status(HttpStatus.OK).body(patientResponse);
+        }
+    }
 }
