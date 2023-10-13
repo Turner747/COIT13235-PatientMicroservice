@@ -16,7 +16,7 @@ import com.optimed.patientmicroservice.repository.ConditionRepository;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/patient/conditions")
+@RequestMapping("/conditions")
 public class ConditionController {
     
     private ConditionRepository conditionRepo;
@@ -56,19 +56,14 @@ public class ConditionController {
         }
     }
     
-    @PutMapping("/id/{id}")
-    public ResponseEntity<ConditionResponse> updateCondition(@PathVariable Long id, @RequestBody Condition updatedCondition) {
+   @GetMapping("delete/{id}")
+    public ResponseEntity<ConditionResponse> deleteConditionById(@PathVariable("id") Long id) {
         Optional<Condition> optional = conditionRepo.findById(id);
         
-        if (optional.isEmpty()) {
-            return ResponseEntity.notFound().build();
+        if (optional.isPresent()) {
+            conditionRepo.deleteById(id);
+            return ResponseEntity.ok().build();
         }
-        else {
-            Condition existingCondition = optional.get();
-            existingCondition = ObjectMapper.map(updatedCondition, Condition.class);
-            ConditionResponse conditionResponse = ObjectMapper.map(conditionRepo.save(existingCondition), ConditionResponse.class);
-
-            return ResponseEntity.status(HttpStatus.OK).body(conditionResponse);
-        }
+        return ResponseEntity.notFound().build();
     }
 }

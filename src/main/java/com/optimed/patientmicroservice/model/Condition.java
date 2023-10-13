@@ -6,6 +6,7 @@ import com.optimed.patientmicroservice.response.StaffResponse;
 import jakarta.persistence.*;
 import java.util.Date;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 @Entity
@@ -35,6 +36,7 @@ public class Condition {
     private String notes;
     
     @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "diagnosis_date", nullable = false)
     private Date diagnosisDate;
 

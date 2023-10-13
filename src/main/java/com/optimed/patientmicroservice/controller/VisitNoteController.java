@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/patients/visit-notes")
+@RequestMapping("/visit-notes")
 public class VisitNoteController {
     
     private VisitNoteRepository visitNoteRepo;
@@ -57,20 +57,15 @@ public class VisitNoteController {
             return ResponseEntity.status(HttpStatus.OK).body(visitNoteResponse);
         }
     }
-    
-   @PutMapping("/id/{id}")
-    public ResponseEntity<VisitNoteResponse> updateVisitNote(@PathVariable Long id, @RequestBody VisitNote updatedVisitNote) {
+   
+    @GetMapping("delete/{id}")
+    public ResponseEntity<VisitNoteResponse> deleteVisitNoteById(@PathVariable("id") Long id) {
         Optional<VisitNote> optional = visitNoteRepo.findById(id);
         
-        if (optional.isEmpty()) {
-            return ResponseEntity.notFound().build();
+        if (optional.isPresent()) {
+            visitNoteRepo.deleteById(id);
+            return ResponseEntity.ok().build();
         }
-        else {
-            VisitNote existingVisitNote = optional.get();
-            existingVisitNote = ObjectMapper.map(existingVisitNote, VisitNote.class);
-            VisitNoteResponse visitNoteResponse = ObjectMapper.map(visitNoteRepo.save(existingVisitNote), VisitNoteResponse.class);
-
-            return ResponseEntity.status(HttpStatus.OK).body(visitNoteResponse);
-        }
+        return ResponseEntity.notFound().build();
     }
 }

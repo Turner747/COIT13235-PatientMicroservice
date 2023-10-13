@@ -6,6 +6,7 @@ import com.optimed.patientmicroservice.response.StaffResponse;
 import jakarta.persistence.*;
 import java.util.Date;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 @Entity
@@ -32,6 +33,7 @@ public class VisitNote  {
     private String content;
     
     @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "visit_date", nullable = false)
     private Date visitDate;
     
