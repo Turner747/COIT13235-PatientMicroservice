@@ -21,10 +21,9 @@ public class ConditionController {
     
     private ConditionRepository conditionRepo;
     
-    @PostMapping
-    public ResponseEntity<ConditionResponse> saveCondition(@RequestBody Condition condition) {
-        Condition new_condition = conditionRepo.save(condition);
-    
+    @PostMapping(consumes = "application/json")
+    public ResponseEntity<ConditionResponse> saveCondition(@RequestBody ConditionResponse conditionResponse) {
+        Condition new_condition = conditionRepo.save(ObjectMapper.map(conditionResponse, Condition.class));
         return ResponseEntity.status(HttpStatus.CREATED).body(ObjectMapper.map(new_condition, ConditionResponse.class));
     }
     
