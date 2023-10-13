@@ -55,20 +55,4 @@ public class PatientController {
             return ResponseEntity.status(HttpStatus.OK).body(patientResponse);
         }
     }
-    
-    @PutMapping("/id/{id}")
-    public ResponseEntity<PatientResponse> updatePatient(@PathVariable Long id, @RequestBody Patient updatedPatient) {
-        Optional<Patient> optional = patientRepo.findById(id);
-        
-        if (optional.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        else {
-            Patient existingPatient = optional.get();
-            existingPatient = ObjectMapper.map(updatedPatient, Patient.class);
-            PatientResponse patientResponse = ObjectMapper.map(patientRepo.save(existingPatient), PatientResponse.class);
-
-            return ResponseEntity.status(HttpStatus.OK).body(patientResponse);
-        }
-    }
 }
