@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 @Entity
@@ -29,6 +30,7 @@ public class Patient implements Serializable  {
     private String surname;
     
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "date_of_birth", nullable = false)
     private Date dateOfBirth;
     
