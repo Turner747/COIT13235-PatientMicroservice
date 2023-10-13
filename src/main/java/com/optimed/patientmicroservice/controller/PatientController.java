@@ -21,10 +21,9 @@ public class PatientController {
 
     private PatientRepository patientRepo;
     
-    @PostMapping
-    public ResponseEntity<PatientResponse> savePatient(@RequestBody Patient patient) {
-        Patient new_patient = patientRepo.save(patient);
-    
+    @PostMapping(consumes = "application/json")
+    public ResponseEntity<PatientResponse> savePatient(@RequestBody PatientResponse patientResponse) {
+        Patient new_patient = patientRepo.save(ObjectMapper.map(patientResponse, Patient.class));
         return ResponseEntity.status(HttpStatus.CREATED).body(ObjectMapper.map(new_patient, PatientResponse.class));
     }
     

@@ -23,10 +23,9 @@ public class VisitNoteController {
     
     private VisitNoteRepository visitNoteRepo;
     
-    @PostMapping
-    public ResponseEntity<VisitNoteResponse> saveVisitNote(@RequestBody VisitNote visitNote) {
-        VisitNote new_visitNote = visitNoteRepo.save(visitNote);
-    
+    @PostMapping(consumes = "application/json")
+    public ResponseEntity<VisitNoteResponse> saveVisitNote(@RequestBody VisitNoteResponse visitNoteResponse) {
+        VisitNote new_visitNote = visitNoteRepo.save(ObjectMapper.map(visitNoteResponse, VisitNote.class));
         return ResponseEntity.status(HttpStatus.CREATED).body(ObjectMapper.map(new_visitNote, VisitNoteResponse.class));
     }
     
