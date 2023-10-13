@@ -55,7 +55,7 @@ public class Patient implements Serializable  {
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
     @JsonIgnore
-    @Column(name = "creation_date", nullable = false)
+    @Column(name = "creation_date", updatable = false)
     private Date creationDate;
     
     @Temporal(TemporalType.TIMESTAMP)
@@ -63,5 +63,4 @@ public class Patient implements Serializable  {
     @JsonIgnore
     @Column(name = "updated_date", nullable = false)
     private Date updatedDate;
-   
 }

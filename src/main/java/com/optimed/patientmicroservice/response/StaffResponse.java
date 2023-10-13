@@ -13,10 +13,10 @@ public class StaffResponse {
     private Long id;
     
     @Column(name = "staff_first_name")
-    private String first_name;
+    private String firstName;
     
     @Column(name = "staff_surname")
-    private String surname;
+    private String lastName;
     
     /*
     @Temporal(TemporalType.DATE)

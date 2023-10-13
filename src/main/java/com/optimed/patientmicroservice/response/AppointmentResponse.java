@@ -22,12 +22,12 @@ public class AppointmentResponse {
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @Column(name = "appointment_start_time")
-    private Date start_time;
+    private Date startTime;
     
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @Column(name = "appointment_end_time")
-    private Date end_time;
+    private Date finishTime;
     
 //    @Enumerated(EnumType.STRING)
     @Column(name = "appointment_status")
