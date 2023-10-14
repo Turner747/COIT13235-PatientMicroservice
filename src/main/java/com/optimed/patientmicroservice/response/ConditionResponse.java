@@ -13,7 +13,7 @@ public class ConditionResponse {
     private Long id;
     @JsonProperty("doctor")
     private StaffResponse doctor;
-    @JsonProperty("doctor")
+    @JsonProperty("patient")
     private PatientResponse patient;
     private String diagnosis;
     private String notes;
