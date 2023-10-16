@@ -13,7 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "condition")
+@Table(name = "patient_condition")
 public class Condition {
 
     @Id
