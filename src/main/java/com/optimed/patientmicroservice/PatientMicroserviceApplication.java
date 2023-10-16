@@ -17,8 +17,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan(basePackages = "com.optimed.patientmicroservice.model")
 public class PatientMicroserviceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(PatientMicroserviceApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(PatientMicroserviceApplication.class, args);
+    }
 
 }

@@ -15,6 +15,6 @@ public class VisitNoteResponse {
     @JsonProperty("patient")
     private PatientResponse patient;
     private String content;
-    private Date visit_date;
+    private Date visitDate;
 
 }

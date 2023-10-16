@@ -102,4 +102,6 @@ public class SampleDataLoader implements ApplicationRunner {
 
         conditionRepo.save(condition);
     }
+
+
 }
