@@ -38,15 +38,15 @@ public class SampleDataLoader implements ApplicationRunner {
     @Override
     @Transactional
     public void run(ApplicationArguments args){
-        Patient patient = createPatient("Test",
-                "Test",
+        Patient patient = createPatient("Adam",
+                "Smith",
                 new Date(),
-                "Test",
-                "Test",
-                "Test",
-                "Test",
-                "Test",
-                "Test");
+                "123456789",
+                "adam@hotmail.com",
+                "Sydney St",
+                "Sydney",
+                "NSW",
+                "2000");
 
         StaffResponse doctor = ObjectMapper.map(staffClient.getStaffByID(3L).getBody(), StaffResponse.class);
 
@@ -54,6 +54,11 @@ public class SampleDataLoader implements ApplicationRunner {
                 doctor,
                 "Diagnosis",
                 "Some Notes",
+                "2023-10-01");
+
+        createVisitNote(patient,
+                doctor,
+                "This is a content",
                 "2023-10-01");
     }
 
@@ -103,5 +108,23 @@ public class SampleDataLoader implements ApplicationRunner {
         conditionRepo.save(condition);
     }
 
+    public void createVisitNote(Patient patient,
+                                StaffResponse doctor,
+                                String content,
+                                String visitDate) {
+        String datePattern = "yyyy-MM-dd";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(datePattern);
 
+        VisitNote visitNote = new VisitNote();
+        visitNote.setPatient(patient);
+        visitNote.setDoctor(doctor);
+        visitNote.setContent(content);
+        try {
+            visitNote.setVisitDate(dateFormat.parse(visitDate));
+        } catch (ParseException e) {
+            System.out.println("Date format: yyyy-MM-dd");
+        }
+
+        visitNoteRepo.save(visitNote);
+    }
 }
