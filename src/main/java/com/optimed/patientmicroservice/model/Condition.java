@@ -35,7 +35,7 @@ public class Condition {
     @Column(name = "notes", nullable = false)
     private String notes;
     
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "diagnosis_date", nullable = false)
     private Date diagnosisDate;

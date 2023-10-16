@@ -54,7 +54,7 @@ public class SampleDataLoader implements ApplicationRunner {
                 doctor,
                 "Diagnosis",
                 "Some Notes",
-                "2023-10-01 00:00");
+                "2023-10-01");
     }
 
     public Patient createPatient(String firstName,
@@ -85,7 +85,7 @@ public class SampleDataLoader implements ApplicationRunner {
                                 String diagnosis,
                                 String notes,
                                 String diagnosisDate) {
-        String datePattern = "yyyy-MM-dd HH:mm";
+        String datePattern = "yyyy-MM-dd";
         SimpleDateFormat dateFormat = new SimpleDateFormat(datePattern);
 
         Condition condition = new Condition();
@@ -97,7 +97,7 @@ public class SampleDataLoader implements ApplicationRunner {
         try {
             condition.setDiagnosisDate(dateFormat.parse(diagnosisDate));
         } catch (ParseException e) {
-            System.out.println("Date format: yyyy-MM-dd HH:mm");
+            System.out.println("Date format: yyyy-MM-dd");
         }
 
         conditionRepo.save(condition);

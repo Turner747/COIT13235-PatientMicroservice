@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Embeddable;
 import java.util.Date;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 @Embeddable
@@ -17,5 +18,6 @@ public class ConditionResponse {
     private PatientResponse patient;
     private String diagnosis;
     private String notes;
-    private Date diagnosis_date;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date diagnosisDate;
 }
